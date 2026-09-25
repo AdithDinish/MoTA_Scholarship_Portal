@@ -61,12 +61,12 @@ const MainContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f6] text-slate-900 font-sans selection:bg-indigo-600 selection:text-white flex flex-col justify-between">
+    <div className="h-screen max-h-screen w-full overflow-hidden bg-[#faf9f6] text-slate-900 font-sans flex flex-col justify-between select-none relative">
       {/* Mobile App Top Header */}
       <Header />
 
-      {/* Main Content Canvas */}
-      <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 pt-2 pb-24">
+      {/* Main Single-Screen Content Viewport */}
+      <main className="flex-1 w-full max-w-lg mx-auto px-4 py-2 overflow-hidden flex flex-col justify-between">
         <Suspense fallback={<ViewFallback />}>
           {role === 'admin' ? (
             <AdminDashboard />
