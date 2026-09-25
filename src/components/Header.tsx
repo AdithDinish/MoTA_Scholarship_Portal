@@ -152,7 +152,7 @@ export const Header: React.FC = () => {
             }}
             className={`w-full text-left p-4 rounded-2xl border flex items-center gap-3 transition-all min-h-[64px] ${
               role === 'student'
-                ? 'bg-emerald-50 border-emerald-500 text-slate-900 font-bold shadow-2xs'
+                ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-bold shadow-2xs'
                 : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
             }`}
           >
@@ -173,7 +173,7 @@ export const Header: React.FC = () => {
             }}
             className={`w-full text-left p-4 rounded-2xl border flex items-center gap-3 transition-all min-h-[64px] ${
               role === 'admin'
-                ? 'bg-blue-50 border-blue-500 text-slate-900 font-bold shadow-2xs'
+                ? 'bg-blue-50 border-blue-500 text-blue-950 font-bold shadow-2xs'
                 : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
             }`}
           >
