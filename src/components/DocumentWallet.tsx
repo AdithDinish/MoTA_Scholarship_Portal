@@ -74,78 +74,63 @@ export const DocumentWallet: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10">
+    <div className="space-y-4 max-w-4xl mx-auto pb-24">
       {/* Top Header Card */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-blue-900 uppercase tracking-wider">
-                Digital Locker & Wallet
-              </span>
-              <span className="text-[10px] bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-semibold">
-                Single Repository
-              </span>
-            </div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-1">
-              My Documents
-            </h1>
-            <p className="text-xs text-slate-500 mt-1 max-w-xl">
-              All academic, caste, and income credentials verified across DigiLocker and state e-District registries.
-              Re-use across all 5 MoTA schemes without re-uploading.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2.5 shrink-0">
-            <button
-              onClick={() => setShowDigiLockerModal(true)}
-              className="px-3.5 py-2 text-xs font-bold text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-colors flex items-center gap-1.5"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Get from DigiLocker</span>
-            </button>
-
-            <button
-              onClick={() => setShowUploadModal(true)}
-              className="px-4 py-2 text-xs font-bold text-white bg-blue-900 hover:bg-blue-950 rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Upload Document</span>
-            </button>
-          </div>
+      <div className="bg-gradient-to-br from-[#4f46e5] via-[#6366f1] to-[#4338ca] text-white rounded-[32px] p-5 sm:p-6 shadow-xl shadow-indigo-500/15 relative overflow-hidden">
+        <div className="flex items-center justify-between mb-3">
+          <button
+            onClick={() => setActiveTab('home')}
+            className="text-xs font-bold text-white bg-white/20 px-3.5 py-1.5 rounded-full hover:bg-white/30 transition-colors"
+          >
+            ← Back
+          </button>
+          <span className="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-full text-indigo-100">
+            DigiLocker & APAAR
+          </span>
         </div>
 
-        {/* Filter and Search Bar */}
-        <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col md:flex-row gap-3 items-center justify-between">
-          {/* Categories Tab Bar */}
-          <div className="flex items-center gap-1 overflow-x-auto w-full md:w-auto pb-1 scrollbar-none">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors ${
-                  activeCategory === cat
-                    ? 'bg-blue-900 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+          Document Wallet
+        </h1>
+        <p className="text-xs text-indigo-100 font-medium mt-1 leading-relaxed">
+          Pre-verified digital credentials for automated scholarship approvals
+        </p>
 
-          {/* Search Box */}
-          <div className="relative w-full md:w-64">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search documents or IDs..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-blue-900"
-            />
-          </div>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 pt-3">
+          <button
+            onClick={() => setShowDigiLockerModal(true)}
+            className="flex-1 py-2.5 px-3 rounded-full bg-white text-indigo-950 font-bold text-xs shadow-md hover:bg-slate-50 transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>DigiLocker Pull</span>
+          </button>
+
+          <button
+            onClick={() => setShowUploadModal(true)}
+            className="flex-1 py-2.5 px-3 rounded-full bg-[#18191c] text-white font-bold text-xs shadow-md hover:bg-black transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Upload Document</span>
+          </button>
         </div>
+      </div>
+
+      {/* Filter Chips Bar */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+              activeCategory === cat
+                ? 'bg-[#18191c] text-white shadow-xs scale-105'
+                : 'bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       {/* Documents Grid */}
@@ -157,10 +142,10 @@ export const DocumentWallet: React.FC = () => {
           return (
             <div
               key={doc.id}
-              className={`bg-white rounded-2xl p-4 border flex flex-col justify-between transition-all ${
+              className={`bg-white rounded-[26px] p-4 border flex flex-col justify-between transition-all ${
                 isActionReq
                   ? 'border-amber-300 ring-1 ring-amber-100 shadow-xs'
-                  : 'border-slate-200 hover:border-slate-300'
+                  : 'border-slate-100 shadow-2xs hover:shadow-xs'
               }`}
             >
               <div>
