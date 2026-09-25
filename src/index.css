@@ -23,6 +23,14 @@
   }
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Accessibility & Reduced Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

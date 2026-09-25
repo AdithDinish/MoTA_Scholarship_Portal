@@ -28,7 +28,7 @@ const ViewFallback: React.FC = () => (
   <div className="flex items-center justify-center p-12 text-slate-500">
     <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-[24px] border border-stone-200/80 shadow-2xs">
       <div className="w-4 h-4 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin" />
-      <span className="text-xs font-bold text-slate-700">Loading module...</span>
+      <span className="text-xs font-bold text-slate-700">Loading...</span>
     </div>
   </div>
 );
@@ -38,7 +38,7 @@ const MainContent: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showLanding, setShowLanding] = useState(false);
 
-  // If viewing landing page
+  // If viewing public landing page
   if (showLanding) {
     return (
       <div className="min-h-screen bg-[#faf9f6] flex flex-col">
@@ -49,7 +49,7 @@ const MainContent: React.FC = () => {
               onClick={() => setShowLanding(false)}
               className="text-xs font-extrabold text-indigo-900 bg-white px-4 py-2 rounded-full border border-stone-200 shadow-2xs hover:bg-stone-50"
             >
-              ← Back to Student App
+              ← Back to Mobile App
             </button>
           </div>
           <LandingPage onOpenLogin={() => setShowAuthModal(true)} />
@@ -61,41 +61,51 @@ const MainContent: React.FC = () => {
   }
 
   return (
-    <div className="h-screen max-h-screen w-full overflow-hidden bg-[#faf9f6] text-slate-900 font-sans flex flex-col justify-between select-none relative">
-      {/* Mobile App Top Header */}
-      <Header />
+    <div className="min-h-screen w-full bg-[#eee7de] sm:bg-[#e7dfd4] flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden select-none font-sans">
+      {/* Authentic Mobile App Phone Frame */}
+      <div className="w-full max-w-[400px] h-screen sm:h-[844px] sm:max-h-[94vh] bg-[#faf9f6] sm:rounded-[52px] sm:border-[10px] sm:border-[#1a1b20] sm:shadow-[0_28px_80px_rgba(0,0,0,0.28),0_10px_30px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden relative">
+        {/* Top Speaker / Dynamic Island on Phone */}
+        <div className="hidden sm:flex justify-center pt-2 pb-1 bg-[#faf9f6] shrink-0 z-30">
+          <div className="w-24 h-4 bg-[#1a1b20] rounded-full flex items-center justify-end px-2">
+            <div className="w-2 h-2 rounded-full bg-[#2a2c35]" />
+          </div>
+        </div>
 
-      {/* Main Single-Screen Content Viewport */}
-      <main className="flex-1 w-full max-w-lg mx-auto px-4 py-2 overflow-hidden flex flex-col justify-between">
-        <Suspense fallback={<ViewFallback />}>
-          {role === 'admin' ? (
-            <AdminDashboard />
-          ) : (
-            <>
-              {activeTab === 'home' && <StudentDashboard />}
-              {activeTab === 'schemes' && <SchemesExplorer />}
-              {activeTab === 'eligibility' && <EligibilityChecker />}
-              {activeTab === 'apply' && <ApplicationForm />}
-              {activeTab === 'documents' && <DocumentWallet />}
-              {activeTab === 'verification' && <VerificationCenter />}
-              {activeTab === 'tracking' && <ApplicationTracker />}
-              {activeTab === 'deficiency' && <DeficiencyManager />}
-              {activeTab === 'payments' && <PaymentDashboard />}
-              {activeTab === 'family' && <FamilyView />}
-              {activeTab === 'overview' && <OverviewMatrix />}
-              {activeTab === 'notifications' && <NotificationCenter />}
-              {activeTab === 'jago' && <JagoChatbot />}
-              {activeTab === 'profile' && <StudentProfileView />}
-              {activeTab === 'onboarding' && <OnboardingFlow />}
-            </>
-          )}
-        </Suspense>
-      </main>
+        {/* Mobile App Header */}
+        <Header />
 
-      {/* Floating Dark Pill Bottom Navigation */}
-      <BottomNav />
+        {/* Mobile Content Viewport with smooth scroll & no scrollbar */}
+        <main className="flex-1 overflow-y-auto no-scrollbar px-4 pt-1 pb-24">
+          <Suspense fallback={<ViewFallback />}>
+            {role === 'admin' ? (
+              <AdminDashboard />
+            ) : (
+              <>
+                {activeTab === 'home' && <StudentDashboard />}
+                {activeTab === 'schemes' && <SchemesExplorer />}
+                {activeTab === 'eligibility' && <EligibilityChecker />}
+                {activeTab === 'apply' && <ApplicationForm />}
+                {activeTab === 'documents' && <DocumentWallet />}
+                {activeTab === 'verification' && <VerificationCenter />}
+                {activeTab === 'tracking' && <ApplicationTracker />}
+                {activeTab === 'deficiency' && <DeficiencyManager />}
+                {activeTab === 'payments' && <PaymentDashboard />}
+                {activeTab === 'family' && <FamilyView />}
+                {activeTab === 'overview' && <OverviewMatrix />}
+                {activeTab === 'notifications' && <NotificationCenter />}
+                {activeTab === 'jago' && <JagoChatbot />}
+                {activeTab === 'profile' && <StudentProfileView />}
+                {activeTab === 'onboarding' && <OnboardingFlow />}
+              </>
+            )}
+          </Suspense>
+        </main>
 
-      {/* Floating Tour Switcher */}
+        {/* Floating Dark Pill Navigation Bar Anchored Inside Phone */}
+        <BottomNav />
+      </div>
+
+      {/* Floating Demo Tour Bar */}
       <DemoTourBar />
 
       {/* Auth Modal */}
