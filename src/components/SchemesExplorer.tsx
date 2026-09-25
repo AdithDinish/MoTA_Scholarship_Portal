@@ -3,19 +3,17 @@ import { useApp } from '../context/AppContext';
 import { SCHEMES_DATA } from '../data/mockData';
 import { Scheme, SchemeId } from '../types';
 import {
-  School,
   GraduationCap,
-  Award,
-  Globe2,
-  BookOpen,
+  ArrowRight,
+  ChevronLeft,
   CheckCircle2,
   AlertTriangle,
-  ArrowRight,
   Info,
-  ChevronDown,
-  ChevronUp,
-  ShieldCheck,
-  FileCheck
+  Sparkles,
+  BookOpen,
+  Award,
+  Globe2,
+  School
 } from 'lucide-react';
 
 export const SchemesExplorer: React.FC = () => {
@@ -26,7 +24,7 @@ export const SchemesExplorer: React.FC = () => {
     application
   } = useApp();
 
-  const [expandedSchemeId, setExpandedSchemeId] = useState<SchemeId | null>(null);
+  const [filterCategory, setFilterCategory] = useState<string>('all');
   const [showConflictModal, setShowConflictModal] = useState<Scheme | null>(null);
 
   const getSchemeIcon = (id: SchemeId) => {
@@ -44,42 +42,21 @@ export const SchemesExplorer: React.FC = () => {
     }
   };
 
-  const getStatusBadge = (status: Scheme['statusForUser']) => {
-    switch (status) {
-      case 'Applied':
-        return (
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-900 border border-blue-300 flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-blue-700" />
-            Applied · Under Verification
-          </span>
-        );
-      case 'Eligible':
-        return (
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
-              Eligible
-            </span>
-            <span className="text-xs text-slate-500 font-medium">Not Applied</span>
-          </div>
-        );
-      case 'Not Applicable':
-        return (
-          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-            Eligibility Check
-          </span>
-        );
-      default:
-        return (
-          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
-            Check Eligibility
-          </span>
-        );
-    }
-  };
+  const categories = [
+    { id: 'all', label: 'All Schemes (5)' },
+    { id: 'pre_matric', label: 'Pre-Matric' },
+    { id: 'post_matric', label: 'Post-Matric' },
+    { id: 'top_class', label: 'Top Class' },
+    { id: 'nfst', label: 'NFST' },
+    { id: 'nos', label: 'NOS Overseas' },
+  ];
+
+  const filteredSchemes = filterCategory === 'all'
+    ? SCHEMES_DATA
+    : SCHEMES_DATA.filter(s => s.id === filterCategory);
 
   const handleApplyClick = (scheme: Scheme) => {
-    // If student already has an active Post-Matric scholarship application, show the "Existing Scholarship Check"
-    if (application.overallStatus !== 'rejected' && scheme.id !== 'post_matric') {
+    if (application.schemeId && application.schemeId !== scheme.id) {
       setShowConflictModal(scheme);
     } else {
       setSelectedSchemeForApply(scheme.id);
@@ -88,268 +65,186 @@ export const SchemesExplorer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10">
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <div className="max-w-2xl">
-          <div className="text-xs font-bold uppercase tracking-wider text-blue-900 mb-1">
-            Ministry of Tribal Affairs Schemes
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Scholarship & Fellowship Schemes
-          </h1>
-          <p className="text-sm text-slate-600 mt-1">
-            All five major welfare schemes administered by MoTA are unified under one single window.
-            Check eligibility, compare benefits, and reuse verified documents.
-          </p>
+    <div className="space-y-5 max-w-4xl mx-auto pb-28">
+      {/* Top Header Card (Soft Orange / Peach Theme matching image center screen) */}
+      <div className="bg-gradient-to-br from-[#ff8c42] via-[#f97316] to-[#ea580c] text-white rounded-[32px] p-6 sm:p-7 shadow-xl shadow-orange-500/20 relative overflow-hidden">
+        {/* Background Decorative Illustration */}
+        <div className="absolute right-4 top-4 opacity-20 text-white pointer-events-none">
+          <GraduationCap className="w-36 h-36" />
         </div>
 
-        {/* Existing Active Benefit Ribbon */}
-        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-xl flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <Info className="w-4 h-4 text-blue-800 shrink-0" />
-            <span className="text-blue-900">
-              You currently have an active application under <strong>Post-Matric Scholarship Scheme (PMS-ST)</strong>.
+        <div className="relative z-10 space-y-3">
+          <button
+            onClick={() => setActiveTab('home')}
+            className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+            aria-label="Back to Home"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-none">
+              ST Schemes & Fellowships
+            </h1>
+            <p className="text-xs sm:text-sm text-orange-100 font-medium mt-1">
+              Ministry of Tribal Affairs Single-Window Portal
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 pt-1">
+            <span className="px-3.5 py-1.5 rounded-full bg-[#121318] text-white text-xs font-bold shadow-md">
+              🎓 5 Schemes Available
+            </span>
+            <span className="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold">
+              📜 100% DBT Disbursement
             </span>
           </div>
-          <button
-            onClick={() => setActiveTab('tracking')}
-            className="text-xs font-bold text-blue-900 hover:underline shrink-0 ml-2"
-          >
-            Track Status
-          </button>
         </div>
       </div>
 
-      {/* 5 Scheme Cards */}
-      <div className="space-y-4">
-        {SCHEMES_DATA.map(scheme => {
-          const Icon = getSchemeIcon(scheme.id);
-          const isExpanded = expandedSchemeId === scheme.id;
+      {/* Horizontal Pill Tag Category Selector */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {categories.map(cat => (
+          <button
+            key={cat.id}
+            onClick={() => setFilterCategory(cat.id)}
+            className={`px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+              filterCategory === cat.id
+                ? 'bg-[#121318] text-white shadow-md scale-105'
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
 
-          const displayName =
-            language === 'hi'
-              ? scheme.hindiName
-              : language === 'ta'
-              ? scheme.tamilName
-              : scheme.name;
+      {/* Schemes List (Matching Course Cards from Reference Image) */}
+      <div className="space-y-4">
+        {filteredSchemes.map((scheme, idx) => {
+          const IconComp = getSchemeIcon(scheme.id);
+          const isApplied = application.schemeId === scheme.id;
+          
+          // Alternate card styles matching reference image (Dark, Periwinkle, Peach)
+          const isDark = idx % 3 === 0;
+          const isLavender = idx % 3 === 1;
+          const isPeach = idx % 3 === 2;
 
           return (
             <div
               key={scheme.id}
-              className={`bg-white rounded-2xl border transition-all ${
-                scheme.statusForUser === 'Applied'
-                  ? 'border-blue-300 ring-1 ring-blue-100 shadow-xs'
-                  : 'border-slate-200 hover:border-slate-300'
+              className={`rounded-[32px] p-6 transition-all duration-300 shadow-sm relative overflow-hidden flex flex-col justify-between min-h-[170px] ${
+                isDark
+                  ? 'bg-[#18191c] text-white shadow-xl'
+                  : isLavender
+                  ? 'bg-[#eef2ff] border border-indigo-200/80 text-indigo-950'
+                  : 'bg-[#fff3eb] border border-orange-200/80 text-orange-950'
               }`}
             >
-              {/* Card Main Bar */}
-              <div className="p-5 sm:p-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#0f2e59] text-white flex items-center justify-center shrink-0 shadow-xs">
-                      <Icon className="w-6 h-6 text-amber-300" />
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                          {scheme.educationLevel}
-                        </span>
-                        {getStatusBadge(scheme.statusForUser)}
-                      </div>
-
-                      <h3 className="text-lg font-bold text-slate-900 leading-snug">
-                        {displayName}
-                      </h3>
-                      <p className="text-xs text-slate-600 mt-1 max-w-2xl">{scheme.tagline}</p>
-                    </div>
+              {/* Card Header Tag & Status */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`w-9 h-9 rounded-2xl flex items-center justify-center font-bold ${
+                      isDark
+                        ? 'bg-white/10 text-white'
+                        : isLavender
+                        ? 'bg-indigo-500/15 text-indigo-700'
+                        : 'bg-orange-500/15 text-orange-700'
+                    }`}
+                  >
+                    <IconComp className="w-5 h-5" />
                   </div>
-
-                  {/* Right Action buttons */}
-                  <div className="flex items-center gap-2 sm:self-center shrink-0">
-                    <button
-                      onClick={() => setExpandedSchemeId(isExpanded ? null : scheme.id)}
-                      className="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors flex items-center gap-1.5"
-                    >
-                      <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
-                      {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                    </button>
-
-                    {scheme.statusForUser === 'Applied' ? (
-                      <button
-                        onClick={() => setActiveTab('tracking')}
-                        className="px-4 py-2 text-xs font-semibold text-white bg-blue-900 hover:bg-blue-950 rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
-                      >
-                        <span>Track</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    ) : scheme.statusForUser === 'Eligible' ? (
-                      <button
-                        onClick={() => handleApplyClick(scheme)}
-                        className="px-4 py-2 text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl shadow-xs transition-colors flex items-center gap-1.5"
-                      >
-                        <FileCheck className="w-3.5 h-3.5" />
-                        <span>Apply Now</span>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          setActiveTab('eligibility');
-                        }}
-                        className="px-3.5 py-2 text-xs font-semibold text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-colors"
-                      >
-                        Check Eligibility
-                      </button>
-                    )}
-                  </div>
+                  <span
+                    className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                      isDark
+                        ? 'bg-white/15 text-white'
+                        : isLavender
+                        ? 'bg-indigo-100 text-indigo-800'
+                        : 'bg-orange-100 text-orange-800'
+                    }`}
+                  >
+                    {scheme.id.replace('_', ' ')}
+                  </span>
                 </div>
 
-                {/* Key Metrics Strip */}
-                <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">
-                      Income Ceiling
-                    </span>
-                    <span className="font-semibold text-slate-800">{scheme.incomeLimit}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">
-                      Financial Support
-                    </span>
-                    <span className="font-semibold text-slate-800 line-clamp-1">
-                      {scheme.financialAssistance}
-                    </span>
-                  </div>
-                  <div className="col-span-2 sm:col-span-1">
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">
-                      Target Group
-                    </span>
-                    <span className="font-semibold text-slate-800 line-clamp-1">{scheme.targetGroup}</span>
-                  </div>
-                </div>
+                {isApplied && (
+                  <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    Applied
+                  </span>
+                )}
               </div>
 
-              {/* Accordion Expanded Detail View */}
-              {isExpanded && (
-                <div className="bg-slate-50/70 p-5 sm:p-6 border-t border-slate-200 rounded-b-2xl space-y-4">
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                      Scheme Overview & Purpose
-                    </h4>
-                    <p className="text-xs text-slate-700 leading-relaxed">{scheme.description}</p>
+              {/* Title & Amount */}
+              <div className="my-3 space-y-1">
+                <h3 className={`text-lg font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  {language === 'hi' ? scheme.hindiName : language === 'ta' ? scheme.tamilName : scheme.name}
+                </h3>
+                <p className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'} line-clamp-2`}>
+                  {scheme.description}
+                </p>
+              </div>
+
+              {/* Footer: Amount & Action Arrow Button */}
+              <div className="flex items-center justify-between pt-2 border-t border-current/10">
+                <div>
+                  <div className={`text-[10px] font-medium uppercase ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    Financial Assistance
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-xl border border-slate-200">
-                      <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5 mb-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                        Eligibility Criteria
-                      </h4>
-                      <ul className="space-y-1.5 text-xs text-slate-600">
-                        {scheme.eligibilityPoints.map((pt, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="text-blue-900 font-bold">·</span>
-                            <span>{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-xl border border-slate-200">
-                      <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5 mb-2">
-                        <ShieldCheck className="w-4 h-4 text-blue-900" />
-                        Required Verified Documents
-                      </h4>
-                      <ul className="space-y-1.5 text-xs text-slate-600">
-                        {scheme.documentsRequired.map((doc, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="text-emerald-700 font-bold">✓</span>
-                            <span>{doc}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mt-3 pt-2 border-t border-slate-100 text-[11px] text-slate-500">
-                        Verified records in your wallet will be auto-attached without re-upload.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-2">
-                    <div className="text-xs text-slate-500">
-                      Coverage: <strong>{scheme.coverage}</strong>
-                    </div>
-                    {scheme.statusForUser !== 'Applied' && (
-                      <button
-                        onClick={() => handleApplyClick(scheme)}
-                        className="px-4 py-2 text-xs font-bold text-white bg-blue-900 hover:bg-blue-950 rounded-xl transition-colors"
-                      >
-                        Proceed to Apply for {scheme.name.split(' ')[0]}
-                      </button>
-                    )}
+                  <div className={`text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    {scheme.financialAssistance}
                   </div>
                 </div>
-              )}
+
+                <button
+                  onClick={() => handleApplyClick(scheme)}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-md hover:scale-105 transition-all group ${
+                    isDark
+                      ? 'bg-white text-slate-950'
+                      : 'bg-[#121318]'
+                  }`}
+                  aria-label={`Apply for ${scheme.name}`}
+                >
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
             </div>
           );
         })}
       </div>
 
-      {/* EXISTING SCHOLARSHIP CHECK MODAL (Section 19 in prompt) */}
+      {/* Conflict Modal (If already applied) */}
       {showConflictModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-base font-bold text-slate-900">
-                  Existing Scholarship Check
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  MoTA Single-Window Concurrency Safeguard
-                </p>
-              </div>
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-[32px] p-6 max-w-sm w-full space-y-4 shadow-2xl border border-slate-200">
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center">
+              <AlertTriangle className="w-6 h-6" />
             </div>
 
-            <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 space-y-2">
-              <p className="font-semibold">
-                We found an active Post-Matric Scholarship application associated with your profile:
-              </p>
-              <div className="bg-white p-2.5 rounded-lg border border-amber-200">
-                <div className="font-bold text-slate-900">Current Scheme: Post-Matric Scholarship (PMS-ST)</div>
-                <div className="text-[11px] text-slate-600">Application ID: MOTA-PMS-2026-001245</div>
-                <div className="text-[11px] text-blue-900 font-semibold mt-0.5">
-                  Status: Active / Under Verification (₹25,000 Disbursed)
-                </div>
-              </div>
-              <p className="text-xs text-slate-700">
-                Please review your current scholarship status before applying for another scheme. Under Central Government guidelines, a student may hold only one full Central Government scholarship simultaneously for the same academic degree.
+            <div>
+              <h3 className="text-lg font-extrabold text-slate-900">One Scholarship Rule</h3>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                You already have an active application under <strong>{application.schemeName}</strong>. Per Ministry guidelines, students can receive one active ST scholarship at a time.
               </p>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-500 border border-slate-200">
-              * Note: You may still submit an application for <strong>{showConflictModal.name}</strong> as an upgrade proposal (e.g. transitioning to Top Class), but the system will require relinquishment or reconciliation upon sanction.
-            </div>
-
-            <div className="flex items-center justify-end gap-2.5 pt-2">
-              <button
-                onClick={() => setShowConflictModal(null)}
-                className="px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
-              >
-                Return to Schemes
-              </button>
+            <div className="space-y-2 pt-2">
               <button
                 onClick={() => {
-                  const targetId = showConflictModal.id;
+                  setSelectedSchemeForApply(showConflictModal.id);
                   setShowConflictModal(null);
-                  setSelectedSchemeForApply(targetId);
                   setActiveTab('apply');
                 }}
-                className="px-4 py-2 text-xs font-bold text-white bg-blue-900 hover:bg-blue-950 rounded-xl shadow-xs transition-colors"
+                className="w-full py-3 rounded-full bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition-colors"
               >
-                Acknowledge & Continue
+                Switch Application to {showConflictModal.name.split(' ')[0]}
+              </button>
+              <button
+                onClick={() => setShowConflictModal(null)}
+                className="w-full py-2.5 rounded-full bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200 transition-colors"
+              >
+                Keep Current Application
               </button>
             </div>
           </div>
