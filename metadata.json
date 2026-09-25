@@ -1,0 +1,6 @@
+{
+  "name": "MoTA Unified ST Scholarship & Fellowship Platform",
+  "description": "Ministry of Tribal Affairs single-window portal for Scheduled Tribe (ST) students to apply, verify, track, and receive Pre-Matric, Post-Matric, Top Class, NFST, and NOS scholarships.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
