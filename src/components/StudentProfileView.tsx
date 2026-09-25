@@ -16,43 +16,47 @@ export const StudentProfileView: React.FC = () => {
   const { student, setActiveTab } = useApp();
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10 max-w-4xl mx-auto">
-      {/* Profile Header */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={student.avatarUrl}
-            alt={student.name}
-            className="w-16 h-16 rounded-full object-cover border-2 border-blue-900 shadow-sm"
-            referrerPolicy="no-referrer"
-          />
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-slate-900">{student.name}</h1>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
-                ST Verified ✓
-              </span>
-            </div>
-            <div className="text-xs text-slate-500 mt-1">
-              MoTA Unified Student ID: <strong className="font-mono text-slate-800">{student.id}</strong>
-            </div>
-          </div>
-        </div>
+    <div className="space-y-4 max-w-4xl mx-auto pb-24">
+      {/* Back button */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setActiveTab('home')}
+          className="text-xs font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 transition-colors"
+        >
+          ← Back
+        </button>
+        <span className="text-xs font-bold text-slate-500">Student Profile</span>
+        <div className="w-12" />
+      </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-center">
-          <button
-            onClick={() => setActiveTab('documents')}
-            className="px-4 py-2 text-xs font-semibold text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-colors"
-          >
-            Digital Wallet
-          </button>
+      {/* Profile Header Card */}
+      <div className="bg-white rounded-[32px] p-5 border border-slate-100 shadow-2xs flex items-center gap-4">
+        <img
+          src={student.avatarUrl}
+          alt={student.name}
+          className="w-16 h-16 rounded-full object-cover border-2 border-indigo-600 shadow-sm shrink-0"
+          referrerPolicy="no-referrer"
+        />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <h1 className="text-lg font-extrabold text-slate-900 truncate">{student.name}</h1>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
+              ST Verified ✓
+            </span>
+          </div>
+          <div className="text-xs text-slate-500 mt-0.5 truncate">
+            ID: <span className="font-mono text-slate-800">{student.id}</span>
+          </div>
+          <div className="text-[11px] font-semibold text-indigo-600 mt-1">
+            {student.tribe} ({student.isPVTG ? 'PVTG Recognized' : 'General ST'})
+          </div>
         </div>
       </div>
 
       {/* Profile Sections Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
         {/* Section 1: Demographic & Identity */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div className="bg-white p-5 rounded-[28px] border border-slate-100 shadow-2xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 font-bold text-slate-900">
             <span className="flex items-center gap-1.5">
               <User className="w-4 h-4 text-blue-900" />
@@ -90,7 +94,7 @@ export const StudentProfileView: React.FC = () => {
         </div>
 
         {/* Section 2: ST Community Lineage */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div className="bg-white p-5 rounded-[28px] border border-slate-100 shadow-2xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 font-bold text-slate-900">
             <span className="flex items-center gap-1.5">
               <Users className="w-4 h-4 text-blue-900" />
@@ -124,7 +128,7 @@ export const StudentProfileView: React.FC = () => {
         </div>
 
         {/* Section 3: Academic Details */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div className="bg-white p-5 rounded-[28px] border border-slate-100 shadow-2xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 font-bold text-slate-900">
             <span className="flex items-center gap-1.5">
               <GraduationCap className="w-4 h-4 text-blue-900" />
@@ -154,7 +158,7 @@ export const StudentProfileView: React.FC = () => {
         </div>
 
         {/* Section 4: Financial & DBT Bank Details */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <div className="bg-white p-5 rounded-[28px] border border-slate-100 shadow-2xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 font-bold text-slate-900">
             <span className="flex items-center gap-1.5">
               <CreditCard className="w-4 h-4 text-blue-900" />

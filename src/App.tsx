@@ -63,7 +63,7 @@ const MainContent: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-[#eee7de] sm:bg-[#e7dfd4] flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden select-none font-sans">
       {/* Authentic Mobile App Phone Frame */}
-      <div className="w-full max-w-[400px] h-screen sm:h-[844px] sm:max-h-[94vh] bg-[#faf9f6] sm:rounded-[52px] sm:border-[10px] sm:border-[#1a1b20] sm:shadow-[0_28px_80px_rgba(0,0,0,0.28),0_10px_30px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden relative">
+      <div className="w-full max-w-[400px] h-[100dvh] sm:h-[844px] sm:max-h-[94vh] bg-[#faf9f6] sm:rounded-[52px] sm:border-[10px] sm:border-[#1a1b20] sm:shadow-[0_28px_80px_rgba(0,0,0,0.28),0_10px_30px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden relative">
         {/* Top Speaker / Dynamic Island on Phone */}
         <div className="hidden sm:flex justify-center pt-2 pb-1 bg-[#faf9f6] shrink-0 z-30">
           <div className="w-24 h-4 bg-[#1a1b20] rounded-full flex items-center justify-end px-2">

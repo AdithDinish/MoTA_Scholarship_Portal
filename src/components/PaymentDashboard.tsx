@@ -13,114 +13,113 @@ import {
 } from 'lucide-react';
 
 export const PaymentDashboard: React.FC = () => {
-  const { payments, student, application } = useApp();
+  const { payments, student, application, setActiveTab } = useApp();
 
   const totalSanctioned = 45000;
   const totalDisbursed = 25000;
   const pendingAmount = 20000;
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-900">
-                Direct Benefit Transfer (DBT)
-              </span>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
-                PFMS Integrated ✓
-              </span>
-            </div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-1">
-              Scholarship Payments
-            </h1>
-            <p className="text-xs text-slate-500 mt-1">
-              Real-time payment tracking powered by Public Financial Management System (PFMS) & Aadhaar Payment Bridge.
-            </p>
-          </div>
+    <div className="space-y-3.5 pb-24 max-w-4xl mx-auto">
+      {/* Back button */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setActiveTab('home')}
+          className="text-xs font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 transition-colors"
+        >
+          ← Back
+        </button>
+        <span className="text-xs font-bold text-slate-500">DBT Payments</span>
+        <div className="w-12" />
+      </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => alert('Demo action: Simulated PDF statement download.')}
-              className="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors flex items-center gap-1.5"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download Statement</span>
-            </button>
+      {/* Header Card */}
+      <div className="bg-gradient-to-br from-[#10b981] via-[#059669] to-[#047857] text-white rounded-[32px] p-5 shadow-xl shadow-emerald-600/15">
+        <div className="flex items-center justify-between text-xs mb-2">
+          <span className="font-bold text-emerald-100 uppercase tracking-wider text-[10px]">
+            Direct Benefit Transfer
+          </span>
+          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/20 text-white">
+            PFMS Verified ✓
+          </span>
+        </div>
+
+        <div className="text-xs text-emerald-100 font-medium">Total Disbursed</div>
+        <div className="text-3xl font-black text-white tracking-tight mt-0.5">
+          ₹{totalDisbursed.toLocaleString('en-IN')}
+        </div>
+        <p className="text-[11px] text-emerald-100/90 mt-1">
+          Directly credited to Aadhaar-seeded SBI account
+        </p>
+      </div>
+
+      {/* 2 Metric Cards */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="p-4 rounded-[26px] bg-[#fff2e8] border border-orange-100 shadow-2xs">
+          <span className="text-[11px] text-slate-500 block font-medium">Sanctioned</span>
+          <div className="text-xl font-black text-slate-900 tabular-nums mt-0.5">
+            ₹{totalSanctioned.toLocaleString('en-IN')}
           </div>
         </div>
 
-        {/* 3 Metric Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mt-5">
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-xs text-slate-500 block font-medium">Total Sanctioned</span>
-            <div className="text-2xl font-bold text-slate-900 tabular-nums mt-1">
-              ₹{totalSanctioned.toLocaleString('en-IN')}
-            </div>
-            <span className="text-[11px] text-slate-400 mt-1 block">Sanction Order: MOTA-2026/SO-881</span>
-          </div>
-
-          <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
-            <span className="text-xs text-emerald-800 font-medium block">Total Disbursed</span>
-            <div className="text-2xl font-bold text-emerald-700 tabular-nums mt-1">
-              ₹{totalDisbursed.toLocaleString('en-IN')}
-            </div>
-            <span className="text-[11px] text-emerald-700 mt-1 block">
-              Credited directly to SBI Account
-            </span>
-          </div>
-
-          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
-            <span className="text-xs text-amber-800 font-medium block">Pending Disbursal</span>
-            <div className="text-2xl font-bold text-amber-700 tabular-nums mt-1">
-              ₹{pendingAmount.toLocaleString('en-IN')}
-            </div>
-            <span className="text-[11px] text-amber-700 mt-1 block">
-              Tuition fee reimbursement processing
-            </span>
+        <div className="p-4 rounded-[26px] bg-[#eef1ff] border border-indigo-100 shadow-2xs">
+          <span className="text-[11px] text-slate-500 block font-medium">Pending Release</span>
+          <div className="text-xl font-black text-slate-900 tabular-nums mt-0.5">
+            ₹{pendingAmount.toLocaleString('en-IN')}
           </div>
         </div>
       </div>
 
       {/* Linked Bank Account Details (NPCI Aadhaar Bridge) */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-            Designated DBT Bank Account
-          </h2>
-          <span className="text-xs font-bold text-emerald-700 flex items-center gap-1">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            NPCI Aadhaar-Seeded & Active
+      <div className="bg-white rounded-[28px] p-4.5 border border-slate-100 shadow-2xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+              <Building className="w-4 h-4" />
+            </div>
+            <div>
+              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                DBT Bank Account
+              </h2>
+              <span className="text-[10px] text-slate-400">Direct Benefit Transfer</span>
+            </div>
+          </div>
+          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-600" />
+            NPCI Seeded
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+        <div className="grid grid-cols-2 gap-2.5 p-3 bg-slate-50/70 rounded-[20px] border border-slate-100 text-xs">
           <div>
-            <span className="text-slate-500 block text-[10px] uppercase font-semibold">Bank</span>
-            <span className="font-bold text-slate-900">{student.bankName}</span>
+            <span className="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Bank</span>
+            <span className="font-bold text-slate-800 text-[11px] truncate block">{student.bankName}</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px] uppercase font-semibold">Account Number</span>
-            <span className="font-mono font-medium text-slate-900">{student.accountNumberMasked}</span>
+            <span className="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Account</span>
+            <span className="font-mono font-bold text-slate-800 text-[11px]">{student.accountNumberMasked}</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px] uppercase font-semibold">IFSC Code</span>
-            <span className="font-mono font-medium text-slate-900">{student.ifscCode}</span>
+            <span className="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">IFSC</span>
+            <span className="font-mono font-bold text-slate-800 text-[11px]">{student.ifscCode}</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[10px] uppercase font-semibold">Aadhaar Mapping</span>
-            <span className="font-semibold text-emerald-700">Seeded via PFMS (No action needed)</span>
+            <span className="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Mapping</span>
+            <span className="font-bold text-emerald-700 text-[11px]">Active (PFMS)</span>
           </div>
         </div>
       </div>
 
-      {/* Payment History List (Prompt Section 15) */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
-          Installment Disbursement History
-        </h2>
+      {/* Payment History List */}
+      <div className="bg-white rounded-[28px] p-4.5 border border-slate-100 shadow-2xs space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Disbursement History
+          </h2>
+          <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+            {payments.length} Records
+          </span>
+        </div>
 
         <div className="space-y-3.5">
           {payments.map(item => {

@@ -41,76 +41,76 @@ export const NotificationCenter: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10 max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-blue-900 mb-1">
-              Alerts & Updates
-            </div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-              Notification Center
-            </h1>
-            <p className="text-xs text-slate-500 mt-1">
-              Direct updates from Ministry of Tribal Affairs, Institution Nodal Officers, and State Welfare Cells.
-            </p>
-          </div>
+    <div className="space-y-3.5 pb-24 max-w-4xl mx-auto">
+      {/* Back button */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setActiveTab('home')}
+          className="text-xs font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 transition-colors"
+        >
+          ← Back
+        </button>
+        <span className="text-xs font-bold text-slate-500">Notifications</span>
+        <button
+          onClick={() => notifications.forEach(n => markNotificationAsRead(n.id))}
+          className="text-xs font-bold text-indigo-600 hover:text-indigo-800"
+        >
+          Read all
+        </button>
+      </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => notifications.forEach(n => markNotificationAsRead(n.id))}
-              className="text-xs font-semibold text-blue-900 hover:underline flex items-center gap-1"
-            >
-              <Check className="w-3.5 h-3.5" />
-              <span>Mark all as read</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Filter Pills */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none text-xs">
-          <button
-            onClick={() => setFilterType('all')}
-            className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
-              filterType === 'all' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            All Updates
-          </button>
-          <button
-            onClick={() => setFilterType('unread')}
-            className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
-              filterType === 'unread' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Unread
-          </button>
-          <button
-            onClick={() => setFilterType('deficiency')}
-            className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
-              filterType === 'deficiency' ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-900 hover:bg-amber-100'
-            }`}
-          >
-            Deficiencies
-          </button>
-          <button
-            onClick={() => setFilterType('payment')}
-            className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
-              filterType === 'payment' ? 'bg-emerald-700 text-white' : 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100'
-            }`}
-          >
-            Payments
-          </button>
-          <button
-            onClick={() => setFilterType('verification')}
-            className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
-              filterType === 'verification' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            Verifications
-          </button>
-        </div>
+      {/* Filter Pills */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+        <button
+          onClick={() => setFilterType('all')}
+          className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+            filterType === 'all'
+              ? 'bg-[#18191c] text-white shadow-2xs scale-105'
+              : 'bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50'
+          }`}
+        >
+          All Updates
+        </button>
+        <button
+          onClick={() => setFilterType('unread')}
+          className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+            filterType === 'unread'
+              ? 'bg-[#18191c] text-white shadow-2xs scale-105'
+              : 'bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50'
+          }`}
+        >
+          Unread
+        </button>
+        <button
+          onClick={() => setFilterType('deficiency')}
+          className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+            filterType === 'deficiency'
+              ? 'bg-amber-600 text-white shadow-2xs scale-105'
+              : 'bg-[#fff8ea] text-amber-900 border border-amber-200 hover:bg-amber-100'
+          }`}
+        >
+          Deficiencies
+        </button>
+        <button
+          onClick={() => setFilterType('payment')}
+          className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+            filterType === 'payment'
+              ? 'bg-emerald-600 text-white shadow-2xs scale-105'
+              : 'bg-[#eefbf4] text-emerald-900 border border-emerald-200 hover:bg-emerald-100'
+          }`}
+        >
+          Payments
+        </button>
+        <button
+          onClick={() => setFilterType('verification')}
+          className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+            filterType === 'verification'
+              ? 'bg-indigo-600 text-white shadow-2xs scale-105'
+              : 'bg-indigo-50 text-indigo-900 border border-indigo-200 hover:bg-indigo-100'
+          }`}
+        >
+          Verifications
+        </button>
       </div>
 
       {/* Notifications List */}
@@ -123,8 +123,8 @@ export const NotificationCenter: React.FC = () => {
             <div
               key={notif.id}
               onClick={() => markNotificationAsRead(notif.id)}
-              className={`bg-white rounded-2xl p-4 sm:p-5 border transition-all cursor-pointer ${
-                !notif.read ? 'border-blue-300 ring-1 ring-blue-100 bg-blue-50/20' : 'border-slate-200 hover:border-slate-300'
+              className={`bg-white rounded-[26px] p-4 border transition-all cursor-pointer shadow-2xs ${
+                !notif.read ? 'border-indigo-300 ring-1 ring-indigo-100 bg-indigo-50/20' : 'border-slate-100 hover:border-slate-200'
               }`}
             >
               <div className="flex items-start gap-3.5">

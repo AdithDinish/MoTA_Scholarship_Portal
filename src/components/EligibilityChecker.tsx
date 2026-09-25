@@ -192,48 +192,64 @@ export const EligibilityChecker: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-10 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="space-y-3.5 pb-24 max-w-4xl mx-auto">
+      {/* Back button */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setActiveTab('home')}
+          className="text-xs font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 transition-colors"
+        >
+          ← Back
+        </button>
+        <span className="text-xs font-bold text-slate-500">Eligibility Engine</span>
+        <button
+          onClick={autofillFromRavi}
+          className="text-xs font-bold text-indigo-600 bg-white px-3 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 flex items-center gap-1"
+        >
+          <RefreshCw className="w-3 h-3" />
+          <span>Autofill</span>
+        </button>
+      </div>
+
+      {/* Header Card */}
+      <div className="bg-[#fff2e8] rounded-[28px] p-4.5 border border-orange-100 shadow-2xs">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-[#ea580c]/15 text-[#ea580c] flex items-center justify-center shrink-0">
+            <Compass className="w-5 h-5" />
+          </div>
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-blue-900 mb-1">
-              MoTA Scheme Rule Engine
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-orange-950 uppercase tracking-wider bg-orange-200/60 px-2 py-0.5 rounded-full">
+                Policy Engine
+              </span>
+              <span className="text-[10px] text-slate-500">5 Schemes</span>
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-lg font-extrabold text-slate-900 tracking-tight mt-1">
               Check Your Eligibility
             </h1>
-            <p className="text-xs text-slate-500 mt-1">
-              Evaluates statutory guidelines for all 5 MoTA scholarships against verified academic and financial parameters.
+            <p className="text-xs text-slate-600 mt-0.5">
+              Evaluates statutory guidelines against your profile parameters.
             </p>
           </div>
-
-          <button
-            onClick={autofillFromRavi}
-            className="px-3.5 py-1.5 text-xs font-semibold text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-colors shrink-0 flex items-center gap-1.5"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Load Ravi's Profile Data</span>
-          </button>
         </div>
       </div>
 
       {/* Form Card */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-5">
-        <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-          Student Profile & Academic Criteria
+      <div className="bg-white rounded-[28px] p-4.5 border border-slate-100 shadow-2xs space-y-4">
+        <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          Academic & Income Criteria
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-3.5">
           {/* Question 1: Education Level */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-slate-700 mb-1">
               Current Education Level
             </label>
             <select
               value={educationLevel}
               onChange={e => setEducationLevel(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-blue-900"
+              className="w-full text-xs p-3 rounded-[16px] border border-slate-200 bg-white focus:outline-indigo-600 min-h-[44px]"
             >
               <option value="secondary_school">Secondary School (Class 9 - 10)</option>
               <option value="higher_sec">Higher Secondary (Class 11 - 12)</option>
@@ -246,15 +262,15 @@ export const EligibilityChecker: React.FC = () => {
 
           {/* Question 2: Institution Type */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-slate-700 mb-1">
               Institution Classification
             </label>
             <select
               value={institutionType}
               onChange={e => setInstitutionType(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-blue-900"
+              className="w-full text-xs p-3 rounded-[16px] border border-slate-200 bg-white focus:outline-indigo-600 min-h-[44px]"
             >
-              <option value="notified_premier">Notified Premier Institute (IITs, IIMs, NITs, AIIMS, MIT Anna Univ)</option>
+              <option value="notified_premier">Notified Premier Institute (IITs, IIMs, NITs, MIT Anna Univ)</option>
               <option value="gov_university">Government / State University or Affiliated College</option>
               <option value="private_accredited">NAAC / UGC Accredited Private College</option>
               <option value="school_gov">Government / Local Body Secondary School</option>
@@ -263,15 +279,15 @@ export const EligibilityChecker: React.FC = () => {
 
           {/* Question 3: ST Community Status */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-slate-700 mb-1">
               Scheduled Tribe (ST) Status
             </label>
             <select
               value={stStatus}
               onChange={e => setStStatus(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-blue-900"
+              className="w-full text-xs p-3 rounded-[16px] border border-slate-200 bg-white focus:outline-indigo-600 min-h-[44px]"
             >
-              <option value="verified_st">Scheduled Tribe with Verified Digital Certificate (Kurumbas / Santhal / etc.)</option>
+              <option value="verified_st">Scheduled Tribe with Verified Digital Certificate (Kurumbas)</option>
               <option value="pvtg_st">Particularly Vulnerable Tribal Group (PVTG)</option>
               <option value="non_st">Non-ST (General / OBC / SC)</option>
             </select>
@@ -279,8 +295,8 @@ export const EligibilityChecker: React.FC = () => {
 
           {/* Question 4: Annual Family Income */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Annual Family Income (from all sources): ₹{annualIncome.toLocaleString('en-IN')}
+            <label className="block text-xs font-bold text-slate-700 mb-1">
+              Annual Family Income: ₹{annualIncome.toLocaleString('en-IN')}
             </label>
             <input
               type="range"
@@ -289,19 +305,19 @@ export const EligibilityChecker: React.FC = () => {
               step={25000}
               value={annualIncome}
               onChange={e => setAnnualIncome(Number(e.target.value))}
-              className="w-full accent-blue-900"
+              className="w-full accent-[#5c67f2] h-2 bg-slate-100 rounded-lg cursor-pointer"
             />
             <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-              <span>₹50,000</span>
-              <span className="font-semibold text-slate-600">₹2.5L (PMS Limit)</span>
+              <span>₹50k</span>
+              <span className="font-semibold text-slate-600">₹2.5L (PMS)</span>
               <span className="font-semibold text-slate-600">₹6L (Top Class)</span>
-              <span>₹10,00,000+</span>
+              <span>₹10L+</span>
             </div>
           </div>
 
           {/* Question 5: Academic Marks */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-slate-700 mb-1">
               Qualifying Exam Marks: {marksPercentage}%
             </label>
             <input
@@ -310,47 +326,44 @@ export const EligibilityChecker: React.FC = () => {
               max={100}
               value={marksPercentage}
               onChange={e => setMarksPercentage(Number(e.target.value))}
-              className="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-blue-900"
+              className="w-full text-xs p-2.5 rounded-[16px] border border-slate-200 focus:outline-indigo-600 min-h-[44px]"
             />
           </div>
 
           {/* Question 6: Fellowship / Overseas Special Flags */}
-          <div className="space-y-2 pt-2">
-            <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
+          <div className="space-y-2 pt-1">
+            <label className="flex items-center gap-2.5 text-xs font-semibold text-slate-700 cursor-pointer min-h-[36px]">
               <input
                 type="checkbox"
                 checked={hasNetGate}
                 onChange={e => setHasNetGate(e.target.checked)}
-                className="w-4 h-4 rounded text-blue-900 accent-blue-900"
+                className="w-4 h-4 rounded text-indigo-600 accent-indigo-600"
               />
               <span>Qualified UGC-NET / CSIR-NET / GATE (for NFST)</span>
             </label>
 
-            <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
+            <label className="flex items-center gap-2.5 text-xs font-semibold text-slate-700 cursor-pointer min-h-[36px]">
               <input
                 type="checkbox"
                 checked={hasOverseasOffer}
                 onChange={e => setHasOverseasOffer(e.target.checked)}
-                className="w-4 h-4 rounded text-blue-900 accent-blue-900"
+                className="w-4 h-4 rounded text-indigo-600 accent-indigo-600"
               />
               <span>Possess Unconditional Foreign Offer (QS Top 500 for NOS)</span>
             </label>
           </div>
         </div>
 
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
-            Rule evaluation runs against verified Ministry guidelines.
-          </span>
+        <div className="pt-3 border-t border-slate-100 flex items-center justify-end">
           <button
             onClick={evaluateEligibility}
             disabled={evaluating}
-            className="px-6 py-2.5 text-xs font-bold text-white bg-blue-900 hover:bg-blue-950 rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50"
+            className="w-full sm:w-auto px-6 py-3 text-xs font-bold text-white bg-[#18191c] hover:bg-slate-800 rounded-full shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 min-h-[44px]"
           >
             {evaluating ? (
               <>
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                <span>Checking eligibility...</span>
+                <span>Evaluating...</span>
               </>
             ) : (
               <>
@@ -364,15 +377,15 @@ export const EligibilityChecker: React.FC = () => {
 
       {/* Results Section */}
       {results && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-slate-900">
-              Evaluation Results ({results.length} Schemes Analyzed)
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Results ({results.length} Schemes Analyzed)
             </h3>
-            <span className="text-xs text-slate-500">Automated Policy Check</span>
+            <span className="text-[10px] text-slate-400">Automated</span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {results.map((res, index) => {
               const isEligible = res.result === 'ELIGIBLE';
               const isPending = res.result === 'REQUIRES VERIFICATION';
@@ -380,19 +393,19 @@ export const EligibilityChecker: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className={`p-4 sm:p-5 rounded-2xl border ${
+                  className={`p-4 rounded-[26px] border shadow-2xs ${
                     isEligible
-                      ? 'bg-emerald-50/50 border-emerald-300'
+                      ? 'bg-[#eefbf4] border-emerald-200'
                       : isPending
-                      ? 'bg-amber-50/50 border-amber-300'
-                      : 'bg-slate-50 border-slate-200'
+                      ? 'bg-[#fff8ea] border-amber-200'
+                      : 'bg-white border-slate-100'
                   }`}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-2">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span
-                          className={`text-xs font-bold px-2 py-0.5 rounded ${
+                          className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
                             isEligible
                               ? 'bg-emerald-600 text-white'
                               : isPending
@@ -402,9 +415,9 @@ export const EligibilityChecker: React.FC = () => {
                         >
                           {res.result}
                         </span>
-                        <h4 className="text-sm font-bold text-slate-900">{res.schemeName}</h4>
+                        <h4 className="text-xs font-bold text-slate-900">{res.schemeName}</h4>
                       </div>
-                      <p className="text-xs text-slate-600 mt-1.5">{res.reason}</p>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">{res.reason}</p>
                     </div>
 
                     {isEligible && (
@@ -413,10 +426,10 @@ export const EligibilityChecker: React.FC = () => {
                           setSelectedSchemeForApply(res.schemeId);
                           setActiveTab('apply');
                         }}
-                        className="px-4 py-2 text-xs font-bold text-white bg-blue-900 hover:bg-blue-950 rounded-xl shadow-xs transition-colors shrink-0 flex items-center gap-1.5 self-start sm:self-center"
+                        className="px-3.5 py-1.5 text-xs font-bold text-white bg-[#18191c] hover:bg-slate-800 rounded-full shadow-md transition-all shrink-0 flex items-center gap-1 min-h-[36px]"
                       >
-                        <span>Apply for Scheme</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span>Apply</span>
+                        <ArrowRight className="w-3 h-3" />
                       </button>
                     )}
                   </div>
@@ -425,15 +438,12 @@ export const EligibilityChecker: React.FC = () => {
             })}
           </div>
 
-          {/* Explicit Legal Verification Disclaimer (as required by prompt) */}
-          <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-950 flex items-start gap-3">
-            <HelpCircle className="w-4 h-4 text-blue-900 shrink-0 mt-0.5" />
-            <div>
-              <div className="font-semibold">Notice regarding eligibility:</div>
-              <p className="text-blue-900 mt-0.5">
-                "You appear eligible based on the information currently available. Final eligibility is subject to official verification by the State Welfare Department, Institution Nodal Officer, and Ministry Scrutiny Cell."
-              </p>
-            </div>
+          {/* Legal Verification Disclaimer */}
+          <div className="p-3 bg-slate-50 border border-slate-100 rounded-[20px] text-[11px] text-slate-500 flex items-start gap-2">
+            <HelpCircle className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+            <p className="leading-relaxed">
+              Preliminary assessment. Final eligibility is verified by State Welfare and Ministry Scrutiny Cells.
+            </p>
           </div>
         </div>
       )}

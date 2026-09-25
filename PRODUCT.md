@@ -4,7 +4,7 @@
 
 ## Platform
 
-mobile-app (web & progressive mobile app shell with native iOS/Android interface patterns)
+adaptive
 
 ## Users
 

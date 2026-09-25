@@ -46,104 +46,108 @@ export const JagoChatbot: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-4 pb-20 lg:pb-8 max-w-3xl mx-auto flex flex-col h-[calc(100vh-140px)] min-h-[550px]">
+    <div className="space-y-3 pb-24 max-w-4xl mx-auto flex flex-col min-h-[70vh]">
+      {/* Back button & Header Bar */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setActiveTab('home')}
+          className="text-xs font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs hover:bg-slate-50 transition-colors"
+        >
+          ← Back
+        </button>
+        <span className="text-xs font-bold text-slate-500">JAGO AI Assistant</span>
+        <div className="w-12" />
+      </div>
+
       {/* JAGO Header Card */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-xs shrink-0">
+      <div className="bg-[#18191c] text-white rounded-[28px] p-4 shadow-md shrink-0">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-[#0f2e59] text-white flex items-center justify-center font-bold text-base shadow-sm border border-blue-900">
-              <Sparkles className="w-6 h-6 text-amber-400" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-base shadow-sm">
+              <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-lg font-bold text-slate-900">JAGO</h1>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              <div className="flex items-center gap-1.5">
+                <h1 className="text-sm font-black text-white">JAGO</h1>
+                <span className="text-[9px] font-bold px-2 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
                   Online · MoTA AI
                 </span>
               </div>
-              <p className="text-xs text-slate-500">Your Scholarship Assistant</p>
+              <p className="text-[11px] text-slate-400">Tribal Scholarship Co-pilot</p>
             </div>
           </div>
 
           {/* Multilingual Switcher inside JAGO */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs">
+          <div className="flex items-center gap-1 bg-white/10 p-0.5 rounded-full text-[10px]">
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                language === 'en' ? 'bg-white font-bold text-blue-900 shadow-xs' : 'text-slate-600'
+              className={`px-2 py-0.5 rounded-full font-bold transition-all ${
+                language === 'en' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-300'
               }`}
             >
-              English
+              EN
             </button>
             <button
               onClick={() => setLanguage('hi')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                language === 'hi' ? 'bg-white font-bold text-blue-900 shadow-xs' : 'text-slate-600'
+              className={`px-2 py-0.5 rounded-full font-bold transition-all ${
+                language === 'hi' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-300'
               }`}
             >
-              हिन्दी
+              HI
             </button>
             <button
               onClick={() => setLanguage('ta')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                language === 'ta' ? 'bg-white font-bold text-blue-900 shadow-xs' : 'text-slate-600'
+              className={`px-2 py-0.5 rounded-full font-bold transition-all ${
+                language === 'ta' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-300'
               }`}
             >
-              தமிழ்
+              TA
             </button>
           </div>
-        </div>
-
-        {/* Disclaimer Requirement from Prompt Section 17 */}
-        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500">
-          <ShieldCheck className="w-3.5 h-3.5 text-blue-900 shrink-0" />
-          <span>
-            JAGO responses are grounded in verified records available through connected MoTA systems (NSP, SFMP, NOS, DigiLocker).
-          </span>
         </div>
       </div>
 
       {/* Chat Messages Feed */}
-      <div className="flex-1 bg-white rounded-2xl border border-slate-200 shadow-xs p-4 overflow-y-auto space-y-4">
+      <div className="flex-1 bg-white rounded-[28px] border border-slate-100 shadow-2xs p-3.5 overflow-y-auto space-y-3 min-h-[300px]">
         {chatMessages.map(msg => {
           const isUser = msg.sender === 'user';
 
           return (
             <div
               key={msg.id}
-              className={`flex items-start gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+              className={`flex items-start gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
             >
               {!isUser && (
-                <div className="w-8 h-8 rounded-lg bg-[#0f2e59] text-white flex items-center justify-center shrink-0">
-                  <Sparkles className="w-4 h-4 text-amber-300" />
+                <div className="w-7 h-7 rounded-xl bg-amber-500/15 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <Sparkles className="w-3.5 h-3.5" />
                 </div>
               )}
 
               <div
-                className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-3.5 text-xs leading-relaxed space-y-2 ${
+                className={`max-w-[85%] rounded-[20px] p-3 text-xs leading-relaxed space-y-1.5 ${
                   isUser
-                    ? 'bg-blue-900 text-white rounded-tr-xs'
-                    : 'bg-slate-50 border border-slate-200 text-slate-900 rounded-tl-xs'
+                    ? 'bg-[#5c67f2] text-white rounded-tr-xs shadow-2xs'
+                    : 'bg-[#faf9f6] border border-slate-100 text-slate-900 rounded-tl-xs shadow-2xs'
                 }`}
               >
-                <p>{msg.text}</p>
+                <p className="text-[12px]">{msg.text}</p>
 
                 {msg.sourceNote && (
-                  <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-200/60">
+                  <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-200/50">
                     ℹ {msg.sourceNote}
                   </div>
                 )}
 
                 {msg.suggestedActions && msg.suggestedActions.length > 0 && (
-                  <div className="pt-2 flex flex-wrap gap-1.5">
+                  <div className="pt-1.5 flex flex-wrap gap-1">
                     {msg.suggestedActions.map((act, i) => (
                       <button
                         key={i}
                         onClick={() => setActiveTab(act.tab)}
-                        className="px-2.5 py-1 text-[11px] font-semibold bg-white text-blue-900 hover:bg-blue-50 border border-blue-200 rounded-lg shadow-2xs transition-colors flex items-center gap-1"
+                        className="px-2.5 py-1 text-[10px] font-bold bg-white text-indigo-900 hover:bg-indigo-50 border border-indigo-200 rounded-full shadow-2xs transition-colors flex items-center gap-1"
                       >
                         <span>{act.label}</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <ArrowRight className="w-2.5 h-2.5" />
                       </button>
                     ))}
                   </div>
@@ -151,7 +155,7 @@ export const JagoChatbot: React.FC = () => {
 
                 <div
                   className={`text-[9px] text-right font-mono ${
-                    isUser ? 'text-blue-200' : 'text-slate-400'
+                    isUser ? 'text-indigo-200' : 'text-slate-400'
                   }`}
                 >
                   {msg.timestamp}
@@ -164,12 +168,12 @@ export const JagoChatbot: React.FC = () => {
       </div>
 
       {/* Quick Prompts Bar */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none shrink-0 text-xs">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar shrink-0 text-xs">
         {samplePrompts.map((prompt, i) => (
           <button
             key={i}
             onClick={() => sendJagoMessage(prompt)}
-            className="px-3 py-1.5 bg-slate-100 hover:bg-blue-100 hover:text-blue-950 hover:border-blue-300 border border-slate-200 text-blue-950 font-medium rounded-full whitespace-nowrap transition-colors min-h-[36px]"
+            className="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-700 font-bold rounded-full whitespace-nowrap shadow-2xs transition-all min-h-[36px]"
           >
             {prompt}
           </button>
@@ -183,14 +187,14 @@ export const JagoChatbot: React.FC = () => {
           placeholder="Ask JAGO in English, हिन्दी, or தமிழ்..."
           value={inputVal}
           onChange={e => setInputVal(e.target.value)}
-          className="flex-1 p-3 text-xs bg-white rounded-xl border border-slate-300 focus:outline-blue-900 shadow-xs"
+          className="flex-1 px-4 py-3 text-xs bg-white rounded-full border border-slate-200/80 focus:outline-indigo-500 shadow-2xs min-h-[44px]"
         />
         <button
           type="submit"
-          className="px-5 py-3 bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5 shrink-0"
+          className="w-11 h-11 bg-[#18191c] hover:bg-slate-800 text-white rounded-full shadow-md transition-all flex items-center justify-center shrink-0 active:scale-95"
+          aria-label="Send message"
         >
-          <span>Ask</span>
-          <Send className="w-3.5 h-3.5" />
+          <Send className="w-4 h-4" />
         </button>
       </form>
     </div>
