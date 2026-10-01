@@ -197,7 +197,7 @@ export const ApplicationForm: React.FC = () => {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="flex flex-col gap-3 text-xs">
               <div>
                 <label className="block text-slate-600 font-semibold mb-1">Full Name (As on Aadhaar)</label>
                 <input
@@ -273,7 +273,7 @@ export const ApplicationForm: React.FC = () => {
               <span className="font-bold text-emerald-700">Pre-Verified</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="flex flex-col gap-3 text-xs">
               <div className="sm:col-span-2">
                 <label className="block text-slate-600 font-semibold mb-1">Current Enrolment</label>
                 <input
@@ -330,7 +330,7 @@ export const ApplicationForm: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="flex flex-col gap-3 text-xs">
               <div>
                 <label className="block text-slate-600 font-semibold mb-1">ST Certificate Number</label>
                 <input

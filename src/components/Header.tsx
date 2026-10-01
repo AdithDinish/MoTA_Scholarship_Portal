@@ -30,30 +30,14 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-30 bg-[#faf9f6]/90 backdrop-blur-md px-4 sm:px-6 pt-3 pb-2 transition-all">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
-        {/* Left: User Avatar & Greeting */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setActiveTab('profile')}
-            className="relative focus:outline-none transition-transform active:scale-95"
-            aria-label="User Profile"
-          >
-            <img
-              src={student.avatarUrl}
-              alt={student.name}
-              className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm ring-2 ring-slate-200/80"
-              referrerPolicy="no-referrer"
-            />
-            <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white" />
-          </button>
-
-          <div>
-            <h1 className="text-base sm:text-lg font-extrabold text-slate-900 leading-snug tracking-tight">
-              Hello, {student.name.split(' ')[0]}
-            </h1>
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-              <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-              <span>Progress: <strong className="text-slate-800">{student.profileCompletion}%</strong></span>
-            </div>
+        {/* Left: User Greeting */}
+        <div>
+          <h1 className="text-base sm:text-lg font-extrabold text-slate-900 leading-snug tracking-tight">
+            Hello, {student.name.split(' ')[0]}
+          </h1>
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+            <span>Progress: <strong className="text-slate-800">{student.profileCompletion}%</strong></span>
           </div>
         </div>
 

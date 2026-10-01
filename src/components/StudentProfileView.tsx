@@ -38,12 +38,7 @@ export const StudentProfileView: React.FC = () => {
           referrerPolicy="no-referrer"
         />
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h1 className="text-lg font-extrabold text-slate-900 truncate">{student.name}</h1>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
-              ST Verified ✓
-            </span>
-          </div>
+          <h1 className="text-lg font-extrabold text-slate-900 truncate">{student.name}</h1>
           <div className="text-xs text-slate-500 mt-0.5 truncate">
             ID: <span className="font-mono text-slate-800">{student.id}</span>
           </div>
@@ -54,7 +49,7 @@ export const StudentProfileView: React.FC = () => {
       </div>
 
       {/* Profile Sections Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+      <div className="flex flex-col gap-4 text-xs">
         {/* Section 1: Demographic & Identity */}
         <div className="bg-white p-5 rounded-[28px] border border-slate-100 shadow-2xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 font-bold text-slate-900">
